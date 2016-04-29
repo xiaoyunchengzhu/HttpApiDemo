@@ -1,0 +1,64 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
+
+    <Button
+        android:text="get"
+        android:layout_width="match_parent"
+        android:id="@+id/get"
+        android:layout_height="wrap_content" />
+    <Button
+        android:text="post"
+        android:layout_width="match_parent"
+        android:id="@+id/post"
+        android:layout_height="wrap_content" />
+    <Button
+        android:text="downloadfile"
+        android:layout_width="match_parent"
+        android:id="@+id/downloadfile"
+        android:layout_height="wrap_content" />
+    <Button
+        android:text="cache"
+        android:layout_width="match_parent"
+        android:id="@+id/cache"
+        android:layout_height="wrap_content" />
+    <Button
+        android:text="nochache"
+        android:layout_width="match_parent"
+        android:id="@+id/nochache"
+        android:layout_height="wrap_content" />
+    <Button
+        android:text="表单uplpadFile"
+        android:layout_width="match_parent"
+        android:id="@+id/uploadFile"
+        android:layout_height="wrap_content" />
+    <Button
+        android:text="内容uplpadFile"
+        android:layout_width="match_parent"
+        android:id="@+id/contentUploadFile"
+        android:layout_height="wrap_content" />
+    <Button
+        android:text="https"
+        android:layout_width="match_parent"
+        android:id="@+id/https"
+        android:layout_height="wrap_content" />
+    <Button
+        android:text="image"
+        android:layout_width="match_parent"
+        android:id="@+id/image"
+        android:layout_height="wrap_content" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <TextView
+        android:text="展示"
+        android:id="@+id/show"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    </ScrollView>
+
+</LinearLayout>
