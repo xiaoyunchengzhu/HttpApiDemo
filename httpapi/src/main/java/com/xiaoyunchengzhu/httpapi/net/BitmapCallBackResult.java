@@ -5,8 +5,12 @@ import android.graphics.Bitmap;
 /**
  * Created by zhangshiyu on 2016/4/25.
  */
-public abstract class BitmapCallBackResult implements CallBackResult<Bitmap> {
+public abstract class BitmapCallBackResult extends CallBackResult<Bitmap> {
 
+    public BitmapCallBackResult()
+    {
+        type=CallBackType.BITMAP_CALLBACKRESULT;
+    }
     @Override
     public void onDownloadProgress(long currentSize, long totalSize, double progress) {
 

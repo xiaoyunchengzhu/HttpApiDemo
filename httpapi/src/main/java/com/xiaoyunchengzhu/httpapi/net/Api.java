@@ -207,7 +207,7 @@ public abstract class Api<T extends Api> {
         //执行前完成装配 便于子类获取装配进行配置
          assemble();
         //下载
-        if (callBack.getClass().getSuperclass().equals(DownLoadCallBackResult.class)) {
+        if (callBack.type==CallBackType.DOWNLOAD_CALLBACKRESULT) {
 
 //             httpDownload=new HttpDownloadImpl();
             execu(new CallBackResult<HttpResult>() {
@@ -289,17 +289,24 @@ public abstract class Api<T extends Api> {
                 httpCache.fetchData(gson.toJson(getSystemApiBean()), new HttpCacheCallBack() {
                             @Override
                             public void getData(String key, byte[] value) {
+                                   switch (callBackResult.type)
+                                   {
+                                       case STRING_CALLBACKRESULT:
+                                           callBackResult.success(Api.this, new String(value));
+                                           break;
+                                       case BITMAP_CALLBACKRESULT:
+                                           callBackResult.success(Api.this, Util.getBitmapFromBytes(value, 100, 100));
+                                           break;
+                                       case UPLOADCALLBACKRESULT:
 
-                                LogManger.i("callabckstring:  " + callBackResult.getClass().getSuperclass().toString());
-                                if (callBackResult.getClass().getSuperclass().equals(StringCallBackResult.class)) {
-                                    callBackResult.success(Api.this, new String(value));
-                                }else if (callBackResult.getClass().getSuperclass().equals(BitmapCallBackResult.class)) {
-                                    callBackResult.success(Api.this, Util.getBitmapFromBytes(value, 100, 100));
-                                }else if (callBackResult.getClass().getSuperclass().equals(CallBackResult.class)){
-                                    callBackResult.failure(Api.this,"类型找不到");
-                                }else {
-                                    callBackResult.failure(Api.this,"类型找不到");
-                                }
+                                           break;
+                                       case  CALLBACKRESULT:
+
+                                           break;
+                                       default:
+
+                                           break;
+                                   }
                             }
                             @Override
                             public void newData(String key) {
@@ -313,7 +320,7 @@ public abstract class Api<T extends Api> {
         }
     }
 
-    private class Cacheput implements CallBackResult<HttpResult>
+    private class Cacheput extends CallBackResult<HttpResult>
     {
 
         private CallBackResult callBackResult;
@@ -361,7 +368,7 @@ public abstract class Api<T extends Api> {
     }
 
 
-    private class FilterCallbackResult implements CallBackResult<HttpResult>{
+    private class FilterCallbackResult extends CallBackResult<HttpResult>{
 
         private CallBackResult callBackResult;
         public FilterCallbackResult( CallBackResult callBackResult)
@@ -369,22 +376,31 @@ public abstract class Api<T extends Api> {
             this.callBackResult=callBackResult;
         }
         @Override
-        public void success(final Api api,  HttpResult result) {
-            if (callBackResult.getClass().getSuperclass().equals(CallBackResult.class)){
-                callBackResult.success(api,result);
-            }else {
+        public void success(final Api api,  final HttpResult result) {
+
+
 
                 Util.convertBytes(result.getInputStream(), new ConvertCallback() {
                     @Override
                     public void success(byte[] data) {
-                        LogManger.i("callabckstring:  " + callBackResult.getClass().getSuperclass().toString());
-                        if (callBackResult.getClass().getSuperclass().equals(StringCallBackResult.class)) {
-                            callBackResult.success(api, new String(data));
-                        } else if (callBackResult.getClass().getSuperclass().equals(BitmapCallBackResult.class)) {
-                            callBackResult.success(api, Util.getBitmapFromBytes(data, 100, 100));
-                        } else {
-                            callBackResult.success(api, "其它类型");
+                        switch (callBackResult.type) {
+                            case STRING_CALLBACKRESULT:
+                                callBackResult.success(Api.this, new String(data));
+                                break;
+                            case BITMAP_CALLBACKRESULT:
+                                callBackResult.success(Api.this, Util.getBitmapFromBytes(data, 100, 100));
+                                break;
+                            case UPLOADCALLBACKRESULT:
+
+                                break;
+                            case CALLBACKRESULT:
+                                callBackResult.success(api, result);
+                                break;
+                            default:
+
+                                break;
                         }
+
                     }
 
                     @Override
@@ -394,7 +410,7 @@ public abstract class Api<T extends Api> {
                 });
             }
 
-        }
+
 
         @Override
         public void failure(Api api, String error) {
