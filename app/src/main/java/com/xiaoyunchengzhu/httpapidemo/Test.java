@@ -8,7 +8,7 @@ public class Test {
 
     public static final String URL_GET = SERVER ;
     public static final String URL_POST = SERVER;
-    public static final String URL_IMAGE = SERVER + "https://avatars1.githubusercontent.com/u/9590659?v=3&s=460";
+    public static final String URL_IMAGE =  "https://avatars1.githubusercontent.com/u/9590659?v=3&s=460";
     public static final String URL_FORM_UPLOAD = SERVER ;
     public static final String URL_CONTENT_UPLOAD = SERVER ;
     public static final String URL_TEXT_UPLOAD = SERVER ;

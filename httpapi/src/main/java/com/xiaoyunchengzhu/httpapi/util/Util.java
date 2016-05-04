@@ -71,7 +71,7 @@ public class Util {
 
 
         ThreadPool threadPool=ThreadPool.getThreadPool();
-        Runnable runnable=new Runnable() {
+        Thread runnable=new Thread( new Runnable() {
             @Override
             public void run() {
 
@@ -105,7 +105,7 @@ public class Util {
 
                 }
             }
-        };
+        });
         threadPool.execute(runnable);
 
 
