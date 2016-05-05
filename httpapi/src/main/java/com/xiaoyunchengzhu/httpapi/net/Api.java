@@ -7,6 +7,8 @@ import com.xiaoyunchengzhu.httpapi.util.ConvertCallback;
 import com.xiaoyunchengzhu.httpapi.util.Util;
 
 import java.io.File;
+import java.util.Map;
+
 import javax.net.ssl.SSLSocketFactory;
 
 /**
@@ -64,6 +66,16 @@ public abstract class Api<T extends Api> {
     public T param(HttpParam param)
     {
         httpParam.put(param);
+        return (T) this;
+    }
+    public T contentType(String contentType)
+    {
+        httpHeader.setContentType(contentType);
+        return (T) this;
+    }
+    public T cookie(Map cookie)
+    {
+        httpHeader.setCookie(cookie);
         return (T) this;
     }
     public T param(String key,String value)

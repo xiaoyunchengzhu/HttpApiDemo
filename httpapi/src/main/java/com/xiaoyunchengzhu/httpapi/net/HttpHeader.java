@@ -39,6 +39,20 @@ public class HttpHeader implements Serializable {
     {
         headerMap=new ConcurrentHashMap<>();
     }
+    public void setContentType(String contentType )
+    {
+        headerMap.put("content-type",contentType);
+    }
+    public void setCookie(Map<String,String> cookie)
+    {
+        StringBuffer cookies=new StringBuffer();
+        for (String key:cookie.keySet()) {
+
+            cookies.append(key+"="+cookie.get(key)+";");
+        }
+
+        headerMap.put("Set-Cookie",cookies.toString());
+    }
     public void put(String key,String value)
     {
         if (key!=null&value!=null)
