@@ -9,7 +9,7 @@
      1、在module 的build.gradle中添加项目依赖：
       dependencies {
  
-        compile 'com.xiaoyunchengzhu:httpapi:1.0.1'
+        compile 'com.xiaoyunchengzhu:httpapi:1.0.2'
  
      }
      2、在project的buid.gradle 中添加mavenLocal()
