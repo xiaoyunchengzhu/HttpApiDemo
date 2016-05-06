@@ -16,7 +16,9 @@
      allprojects {
     repositories {
         jcenter()
-        mavenLocal()
+         maven {
+            url 'https://dl.bintray.com/xiaoyunchengzhu/maven/'
+        }
       }
     }
      3、make project一下，就可以使用工具进行玩耍了。
