@@ -12,7 +12,7 @@
         compile 'com.xiaoyunchengzhu:httpapi:1.0.2'
  
      }
-     2、在project的buid.gradle 中添加mavenLocal()
+     2、在project的buid.gradle 中添加maven(苦，本来不该有这个过程，翻墙失败，只好麻烦这一步了)
      allprojects {
     repositories {
         jcenter()
