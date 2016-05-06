@@ -46,6 +46,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
     Button image;
     @InjectView(R.id.contentUploadFile)
     Button  contentUpload;
+    @InjectView(R.id.updateExpired)
+    Button updateExpired;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +63,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
         https.setOnClickListener(this);
         image.setOnClickListener(this);
         contentUpload.setOnClickListener(this);
+        updateExpired.setOnClickListener(this);
     }
 
     @Override
@@ -98,7 +101,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 });
                 break;
             case R.id.cache:
-                APIManager.createApi(new HttpApi(Test.URL_CACHE)).cacheMode(CacheMode.is_cache).execute(new StringCallBackResult() {
+                APIManager.createApi(new HttpApi(Test.URL_CACHE)).cacheMode(CacheMode.is_cache).param("name","cache").execute(new StringCallBackResult() {
                     @Override
                     public void success(Api api, String result) {
                         show.setText(result);
@@ -129,7 +132,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 break;
             case R.id.downloadfile:
                 //下载
-                APIManager.createApi(new HttpApi(Test.URL_DOWNLOAD)).execute(new DownLoadCallBackResult(Environment.getExternalStorageDirectory().getAbsolutePath()+"/test") {
+                APIManager.createApi(new HttpApi(Test.URL_DOWNLOAD)).execute(new DownLoadCallBackResult(Environment.getExternalStorageDirectory().getAbsolutePath()+"/test.zip") {
 
                     @Override
                     public void success(Api api, String result) {
@@ -208,6 +211,22 @@ public class MainActivity extends Activity implements View.OnClickListener{
                         show.setText("进度：" + (int) (progress * 100) + "%");
                     }
                 });
+                break;
+            case R.id.updateExpired:
+                APIManager.createApi(new HttpApi(Test.URL_CACHE)).cacheMode(CacheMode.is_cache).param("name","我们的世界").execute(new StringCallBackResult() {
+                    @Override
+                    public void success(Api api, String result) {
+                        show.setText(result);
+                        LogManger.e(result);
+                    }
+
+                    @Override
+                    public void failure(Api api, String error) {
+                        LogManger.e(error);
+                        show.setText(error);
+                    }
+                }).updateExpired(10000);
+
                 break;
         }
 

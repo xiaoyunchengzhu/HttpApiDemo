@@ -52,4 +52,19 @@ public class HttpCacheImp extends HttpCache {
     public void clearAllCache() {
         CacheQueueManager.clearAll();
     }
+
+    @Override
+    public void update(String key, long expiredTime, byte[] value) {
+           cacheQueue.update(value,key,expiredTime);
+    }
+
+    @Override
+    public void update(String key, byte[] value) {
+                cacheQueue.update(value,key);
+    }
+
+    @Override
+    public void update(String key, long expiredTime) {
+              cacheQueue.update(key,expiredTime);
+    }
 }

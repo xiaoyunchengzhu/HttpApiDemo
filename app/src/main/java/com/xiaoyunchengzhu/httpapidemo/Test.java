@@ -14,6 +14,6 @@ public class Test {
     public static final String URL_TEXT_UPLOAD = SERVER ;
     public static final String URL_CACHE=SERVER+"/Request" ;
     public static final String URL_NO_CACHE=SERVER+"/Request" ;
-    public static final String URL_DOWNLOAD = "https://codeload.github.com/xiaoyunchengzhu/XmlConvertObject/zip/master";
+    public static final String URL_DOWNLOAD = SERVER+"/Request/test.zip" ;
 
 }

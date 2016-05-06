@@ -13,13 +13,14 @@ public class CacheOpenHelper extends SQLiteOpenHelper {
     public static String table_key="key";
     public static String table_data="data";
     public static String table_lastModified="lastModified";
+    public static String table_expiredTime="expiredTime";
     public CacheOpenHelper(Context context ) {
         super(context, context.getPackageName()+"xiaoyunchengzhudb", null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("create  table if not exists " + tableName + " (" + table_id + " int primary key ," + table_key + " text not null ," + table_data + " blob," + table_lastModified + " long)");
+        sqLiteDatabase.execSQL("create  table if not exists " + tableName + " (" + table_id + " int primary key ," + table_key + " text not null ," + table_data + " blob," + table_lastModified + " long,"+table_expiredTime+" long)");
     }
 
     @Override

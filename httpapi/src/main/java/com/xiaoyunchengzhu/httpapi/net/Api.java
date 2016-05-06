@@ -23,14 +23,14 @@ public abstract class Api<T extends Api> {
     private HttpParam httpParam=new HttpParam();
     private HttpHeader httpHeader=new HttpHeader();
     private String url;
-    private java.lang.Object marks;//标记 Api，用于获取Api
+    private Object marks;//标记 Api，用于获取Api
     private long connectTimeout;//默认10s
     protected SystemApiBean systemApiBean;
     protected CacheMode cacheMode=CacheMode.no_cache;
     private HttpCache httpCache;
     private HttpDownload httpDownload;
     private SSLSocketFactory sslSocketFactory;
-    private long expired=3600000;
+    private long expired=60000;//缓存统一过期时效一分钟
     private String content=null;
     private byte[] bytesContent=new byte[0];
     private File fileContent=null;
@@ -40,7 +40,7 @@ public abstract class Api<T extends Api> {
     {
         this.url=url;
         connectTimeout=APIManager.getInstance().getConnectTimeout();
-        httpParam=APIManager.getInstance().getParam();
+        httpParam.put(APIManager.getInstance().getParam());
         httpHeader.put(APIManager.getInstance().getHeader());
         systemApiBean=new SystemApiBean();
     }
@@ -51,7 +51,7 @@ public abstract class Api<T extends Api> {
         return connectTimeout;
     }
 
-    public java.lang.Object getMarks() {
+    public Object getMarks() {
         return marks;
     }
 
@@ -67,6 +67,17 @@ public abstract class Api<T extends Api> {
     {
         httpParam.put(param);
         return (T) this;
+    }
+
+    public T updateExpired(long expired)
+    {
+        this.expired=expired;
+        if (httpCache!=null)
+        {
+            httpCache.update(gson.toJson(systemApiBean),expired);
+        }
+        return (T) this;
+
     }
     public T contentType(String contentType)
     {
@@ -205,17 +216,12 @@ public abstract class Api<T extends Api> {
         return (T)this;
     }
 
-    private void judgCache()
-    {
-        //文件下载不要缓存；
 
-    }
-
-      public     void assembleExecu(CallBackResult callBackResult){
+    public  void assembleExecu(CallBackResult callBackResult){
         assemble();
         execu(callBackResult);
     }
-    public  void execute( final CallBackResult callBack){
+    public  T execute( final CallBackResult callBack){
         //执行前完成装配 便于子类获取装配进行配置
          assemble();
         //下载
@@ -289,7 +295,7 @@ public abstract class Api<T extends Api> {
                         break;
                 }
             }
-
+     return (T) this;
 
     }
 
@@ -360,7 +366,6 @@ public abstract class Api<T extends Api> {
             });
 
             callBackResult.success(api, result);
-//            cacheQueue=null;
         }
 
         @Override

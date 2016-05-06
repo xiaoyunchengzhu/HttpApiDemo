@@ -14,7 +14,7 @@ public class APIManager {
 
     private static HttpHeader header; //所有请求统一头部。
     private static HttpParam param;  //所有请求同意参数
-    private static long connectTimeout=36000;             //所有请求统一连接超时
+    private static long connectTimeout=20000;    //所有请求统一连接超时20秒
     private static APIManager apiManager;
     private static Context context1;
     private Handler handler=new Handler(Looper.getMainLooper());
@@ -93,11 +93,10 @@ public class APIManager {
     public static Api createApi(Api api)
     {
         list.add(api);
-
         return api;
     }
 
-    void cancel(String marks){
+    public void cancel(String marks){
 
         for (Api api:list)
         {
@@ -105,6 +104,13 @@ public class APIManager {
                  {
                      api.cancel();
                  }
+        }
+    }
+    public void cancelAllApi()
+    {
+        for (Api api:list)
+        {
+                api.cancel();
         }
     }
 
