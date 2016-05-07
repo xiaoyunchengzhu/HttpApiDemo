@@ -9,20 +9,13 @@
      1、在module 的build.gradle中添加项目依赖：
       dependencies {
  
-        compile 'com.xiaoyunchengzhu:httpapi:1.0.2'
+        compile 'com.xiaoyunchengzhu:httpapi:1.0.3'
  
      }
-     2、在project的buid.gradle 中添加maven(苦，本来不该有这个过程，翻墙失败，只好麻烦这一步了)
-     allprojects {
-    repositories {
-        jcenter()
-         maven {
-            url 'https://dl.bintray.com/xiaoyunchengzhu/maven/'
-        }
-      }
-    }
-     3、make project一下，就可以使用工具进行玩耍了。
-     4、代码使用：
+     
+     
+     2、make project一下，就可以使用工具进行玩耍了。
+     3、代码使用：
         (1)首先在组建的oncreate开始进行初始化。
           APIManager.getInstance().init(context);
         (2)就可以使用了，
