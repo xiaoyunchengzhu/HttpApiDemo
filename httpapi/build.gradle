@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 //apply plugin: 'com.novoda.bintray-release'
-version = "1.0.2"
+version = "1.0.3"
 android {
     compileSdkVersion 26
     buildToolsVersion "26.0.3"
@@ -90,7 +90,7 @@ artifacts {
 
 bintray {
     user = "xiaoyunchengzhu"
-    key = "4d49836ab6dfb4dabfad01c2388cccd149f437ba"
+    key = ""
 
     configurations = ['archives']
     pkg {

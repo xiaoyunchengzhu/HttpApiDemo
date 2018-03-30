@@ -7,7 +7,7 @@ import android.util.Log;
  */
 public class LogManger {
 
-    private static String tag="com.zhangshiy";
+    private static String tag="com.xiaoyunchengzhu";
     private static boolean isDebug=true;
 
     public static void e(String msg)
